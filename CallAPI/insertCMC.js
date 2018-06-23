@@ -11,12 +11,11 @@ MongoClient.connect(url, function(err, db) {
 
 		if(error) throw error;
 		var parsedData = JSON.parse(body);
-
   		for(var i in parsedData.data) {
 
 	  		var obj = {
 
-		  		id: i,
+		  		id: parsedData.data[i].symbol.toUpperCase(),
 		  		name: parsedData.data[i].name.toUpperCase(),
 		  		idCMC: parsedData.data[i].id,
 		  		symbolCMC: parsedData.data[i].symbol.toUpperCase(),
@@ -25,10 +24,12 @@ MongoClient.connect(url, function(err, db) {
 
 		  	}
 
+		  	console.log(obj);
+
 		  	dbo.collection("cryptodata").updateOne(
 
 		  		{ name: obj.name},
-		  		{ $set: {id: obj.i, name: obj.name, idCMC: obj.idCMC, symbolCMC: obj.symbolCMC}},
+		  		{ $set: {id: obj.id, name: obj.name, idCMC: obj.idCMC, symbolCMC: obj.symbolCMC}},
 		  		{ upsert: true},
 		  		function(err, res) {
 		  			if(err) throw err;

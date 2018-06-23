@@ -16,7 +16,7 @@ MongoClient.connect(url, function(err, db) {
 
 	  		var obj = {
 
-		  		id: i,
+		  		id: parsedData.Data[i].Symbol.toUpperCase(),
 		  		name: parsedData.Data[i].CoinName.toUpperCase(),
 		  		idCMC: "",
 		  		symbolCMC: "",
@@ -28,7 +28,7 @@ MongoClient.connect(url, function(err, db) {
 		  	dbo.collection("cryptodata").updateOne(
 
 		  		{ name: obj.name},
-		  		{ $set: {id: obj.i, name: obj.name, idCC: obj.idCC, symbolCC: obj.symbolCC}},
+		  		{ $set: {id: obj.id, name: obj.name, idCC: obj.idCC, symbolCC: obj.symbolCC}},
 		  		{ upsert: true},
 		  		function(err, res) {
 		  			if(err) throw err;
