@@ -16,7 +16,7 @@ MongoClient.connect(url, function(err, db) {
 	  		var obj = {
 
 		  		id: parsedData.data[i].symbol.toUpperCase(),
-		  		name: parsedData.data[i].name.toUpperCase(),
+		  		name: parsedData.data[i].name.toUpperCase().replace(/\sTOKEN/g, '').replace(/\s/g, ''),
 		  		idCMC: parsedData.data[i].id,
 		  		symbolCMC: parsedData.data[i].symbol.toUpperCase(),
 		  		idCC: "",
